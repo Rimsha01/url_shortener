@@ -27,7 +27,7 @@ def test_shorten_missing_url(client):
     assert 'Missing Url' in response.json['error']
 
 
-def test_shorten_url_multiple_requests_same_url( client):
+def test_same_url_shortening( client):
     sample_url = "http://www.thisismyverylongdomainnamethatisreallyreallylong.com/"
     response1 = client.post('/api/shorten',json={'url': sample_url})
     assert response1.status_code == 200

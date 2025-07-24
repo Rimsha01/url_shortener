@@ -10,7 +10,7 @@ BaseChar = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'
 len_base = len(BaseChar)
 
 #encoding to base 62 format
-def base_char_encode(id):
+def base_char_encode(id: int) -> str:
     if id == 0:
         return BaseChar[0]
     encode= ""
@@ -20,7 +20,7 @@ def base_char_encode(id):
 
     return encode
 
-def short_url(long_url, length = 6):
+def short_url(long_url: str, length: int = 6) -> str:
     try:
         #hashing the long url given by user and converting it to integer form
         hashed_url =int( hashlib.sha256(long_url.encode()).hexdigest(),16)
@@ -32,19 +32,9 @@ def short_url(long_url, length = 6):
         raise ValueError("url shortening failed")
 
 
-def validate_url(long_url:str)->bool:
-    try:
-        result = urlparse(long_url)
-        if result.scheme and result.netloc:
-            return True
-    except:
+def validate_url(long_url: str) -> bool:
+    if type(long_url) != str:
         return False
-
-
-
-
-
-
-
-
-
+    result = urlparse(long_url)
+    if result.scheme and result.netloc:
+        return True

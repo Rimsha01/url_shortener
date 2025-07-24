@@ -30,8 +30,8 @@ def shorten_url():
         return jsonify({"error": "Invalid Url"}),400
 
     else:
-        shortened_code = short_url(long_url)
-        shortened_link = f"{Config.backend_url}/{shortened_code}"
+        shortened_code : str = short_url(long_url)
+        shortened_link : str = f"{Config.backend_url}/{shortened_code}"
 
         stored_urls[shortened_code] = URLShortener(long_url)
         return jsonify({
@@ -39,7 +39,7 @@ def shorten_url():
             "shortened_url":shortened_link}), 200
 
 @app.route('/<short_code>', methods = ['GET'])
-def redirect_to_long_url(short_code):
+def redirect_to_long_url(short_code: str) :
     url = stored_urls.get(short_code)
     if url:
         url.clicks += 1
@@ -48,7 +48,7 @@ def redirect_to_long_url(short_code):
         return jsonify({"error":"Not found"}), 404
 
 @app.route('/api/stats/<short_code>', methods = ['GET'])
-def stats(short_code):
+def stats(short_code:str):
     obj = stored_urls.get(short_code)
     if obj :
         return obj.to_dict()

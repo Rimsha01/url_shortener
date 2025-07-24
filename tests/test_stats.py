@@ -17,7 +17,6 @@ def test_stats_known_short_code(client):
     assert stats_response.json["url"] == url
 
 
-
 def test_stats_unknown_code(client):
     response = client.get("/api/stats/try123")
     assert response.status_code == 404
